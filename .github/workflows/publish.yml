@@ -20,9 +20,11 @@ env:
   DOTNET_NO_LOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+  # Use Node 24 for setup-node; opt Actions runtime to Node 24 (see GitHub deprecation of Node 20).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   # Optional: set a repository/org variable named PACKAGE_VERSION to pin a default for main-branch builds.
   CONFIGURATION: Release
-  NODE_VERSION: "20"
+  NODE_VERSION: "24"
 
 jobs:
   publish:

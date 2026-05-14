@@ -15,7 +15,7 @@
     <RepositoryUrl>https://github.com/jssmotta/SG.HealthCheck.UI.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -50,8 +50,8 @@
     <None Remove="**/obj/**" />
     <None Remove="**/bin/**" />
     <!-- Do not compile sources from the 'src' folder; those are separate projects with their own csproj files -->
-    <Compile Remove="src\**\*.cs" />
-    <EmbeddedResource Remove="src\**\*" />
-    <None Remove="src\**\*" />
+    <Compile Remove="src/**/*.cs" />
+    <EmbeddedResource Remove="src/**/*" />
+    <None Remove="src/**/*" />
   </ItemGroup>
 </Project>
