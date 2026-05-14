@@ -1,0 +1,129 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// ========================================
+// CONFIGURAÇÃO DE SERVIÇOS
+// ========================================
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Configurar HealthChecks
+builder.Services
+    .AddHealthChecks()
+    .AddSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("DefaultConnection")!,
+        name: "sql-server",
+        failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Degraded,
+        tags: new[] { "db", "sql", "sqlserver" })
+    .AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy(), tags: new[] { "api" });
+
+// Configurar HealthChecks UI
+builder.Services
+    .AddHealthChecksUI(setup =>
+    {
+        // Intervalo de avaliação em segundos
+        setup.SetEvaluationTimeInSeconds(60);
+        
+        // Limitar requisições concorrentes ao endpoint da API
+        setup.SetApiMaxActiveRequests(3);
+        
+        // Adicionar endpoints de health check para monitorar
+        setup.AddHealthCheckEndpoint("API Principal", "/health");
+        
+        // Configurar histórico
+        setup.SetMaximumExecutionHistoriesPerEndpoint(10);
+        
+        // Configurar notificações de falha
+        setup.SetMinimumSecondsBetweenFailureNotifications(300);
+        
+        // Texto do cabeçalho
+        setup.SetHeaderText("Health Checks - SG API");
+    })
+    .AddInMemoryStorage();  // Use AddSqlServerStorage("connectionString") para produção
+
+var app = builder.Build();
+
+// ========================================
+// CONFIGURAÇÃO DO PIPELINE DE MIDDLEWARE
+// ========================================
+
+// Swagger apenas em Development
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
+
+// ========================================
+// MAPEAMENTO DE ENDPOINTS
+// ========================================
+
+// 1. Controllers (suas APIs) - SEMPRE PRIMEIRO
+app.MapControllers();
+
+// 2. HealthCheck endpoint básico (JSON)
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+    ResultStatusCodes =
+    {
+        [Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Degraded] = StatusCodes.Status200OK,
+        [Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
+
+// 3. HealthCheck endpoint específico para liveness (Kubernetes)
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("api")
+});
+
+// 4. HealthCheck endpoint específico para readiness (Kubernetes)
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("db")
+});
+
+// 5. HealthChecks UI (Dashboard) - SEMPRE POR ÚLTIMO
+app.MapHealthChecksUI(options =>
+{
+    options.UIPath = "/healthchecks-ui";
+    options.ApiPath = "/healthchecks-api";
+    options.WebhookPath = "/healthchecks-webhooks";
+    options.ResourcesPath = "/ui/resources";
+    options.UseRelativeApiPath = false;
+    options.UseRelativeResourcesPath = false;
+    options.UseRelativeWebhookPath = false;
+    options.PageTitle = "Health Checks Dashboard";
+});
+
+app.Run();
+
+/*
+ * ENDPOINTS DISPONÍVEIS:
+ * 
+ * Suas APIs:
+ *   - http://localhost:5000/api/*
+ * 
+ * Health Checks:
+ *   - http://localhost:5000/health           (JSON completo)
+ *   - http://localhost:5000/health/live      (Liveness - para Kubernetes)
+ *   - http://localhost:5000/health/ready     (Readiness - para Kubernetes)
+ * 
+ * Health Checks UI:
+ *   - http://localhost:5000/healthchecks-ui  (Dashboard visual)
+ *   - http://localhost:5000/healthchecks-api (API do UI)
+ * 
+ * Swagger (apenas Development):
+ *   - http://localhost:5000/swagger
+ */

@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <PackageTags>$(PackageTags);UI</PackageTags>
+    <Description>HealthChecks.UI is an ASP.NET Core dashboard for ASP.NET Core HealthChecks. SG fork: https://github.com/jssmotta/SG.HealthCheck.UI — upstream: https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks</Description>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);RCS1090</WarningsNotAsErrors>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\images\SG.Logo.png" />
+    <None Remove="assets\SG.Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\images\SG.Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\index.html" />
+    <EmbeddedResource Include="assets\healthchecksui-min.css" />
+    <EmbeddedResource Include="assets\vendors-dll.js" />
+    <EmbeddedResource Include="assets\healthchecks-bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Duende.IdentityModel" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="KubernetesClient" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HealthChecks.UI.Data\HealthChecks.UI.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="HealthChecks.UI.Image" />
+  </ItemGroup>
+
+  <Target Name="InstallPackages" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="*** Installing npm packages ***" />
+    <Exec Command="npm install" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="BuildClient" BeforeTargets="BeforeBuild" DependsOnTargets="InstallPackages">
+    <Message Importance="high" Text="*** Bundling client files ***" />
+    <Exec Command="npm run build" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="UglifyCss" BeforeTargets="BeforeBuild" DependsOnTargets="BuildClient">
+    <Message Importance="high" Text="*** Uglifying css files *** " />
+    <Exec Command="npm run buildcss:prod" ContinueOnError="false" />
+  </Target>
+
+</Project>

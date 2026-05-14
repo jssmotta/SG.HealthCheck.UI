@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <PackageTags>$(PackageTags);ApplicationStatus</PackageTags>
+    <Description>HealthChecks.ApplicationStatus is the health check package for detection graceful shutdown.</Description>
+    <VersionPrefix>$(HealthCheckApplicationStatus)</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CallerArgumentExpressionAttribute.cs" Link="CallerArgumentExpressionAttribute.cs" />
+  </ItemGroup>
+
+</Project>
+

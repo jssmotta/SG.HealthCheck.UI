@@ -1,0 +1,50 @@
+<Project>
+
+  <Import Project="..\Directory.Build.props" />
+  
+  <PropertyGroup>
+    <PackageId>SG.$(MSBuildProjectName)</PackageId>
+    <PackageIcon>icon.png</PackageIcon>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/jssmotta/SG.HealthCheck.UI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jssmotta/SG.HealthCheck.UI.git</RepositoryUrl>
+    <Authors>Jefferson S. Motta</Authors>
+    <Company>Menphis Sistemas Inteligentes</Company>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageTags>HealthCheck;HealthChecks;Health;SG;SourceGenesys</PackageTags>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <NuGetAuditLevel>critical</NuGetAuditLevel> <!-- TODO: remove-->
+    <Version>10.0.0</Version>
+    <PackageVersion>10.0.0</PackageVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PACKAGE_VERSION)' != ''">
+    <Version>$(PACKAGE_VERSION)</Version>
+    <PackageVersion>$(PACKAGE_VERSION)</PackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefaultNetCoreApp>net10.0</DefaultNetCoreApp>
+    <DefaultLibraryTargetFrameworks>$(DefaultNetCoreApp);netstandard2.0</DefaultLibraryTargetFrameworks>
+    <!-- Disable SDK auto-generation of assembly attributes to avoid duplicate attributes when using Directory.Build.props values -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' AND !$(MSBuildProjectName.StartsWith('HealthChecks.UI'))">
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\assets\icon.png" Pack="true" PackagePath="\" />
+    <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Condition="Exists('$(MSBuildThisFileDirectory)..\README.md')" />
+    <InternalsVisibleTo Include="$(MSBuildProjectName).Tests" Condition="'$(SignAssembly)' != 'true'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(MSBuildProjectName.StartsWith('HealthChecks.UI')) OR '$(MSBuildProjectName)' == 'HealthChecks.UI.Core'">
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+  </ItemGroup>
+
+</Project>
+

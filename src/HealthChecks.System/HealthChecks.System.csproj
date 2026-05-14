@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <PackageTags>$(PackageTags);Beat;System;Ping;Disk Storage</PackageTags>
+    <Description>HealthChecks.System is the system health check package.</Description>
+    <VersionPrefix>$(HealthCheckSystem)</VersionPrefix>
+    <!-- Prevent SDK from generating assembly attributes to avoid duplicates with Directory.Build.props -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ServiceProcess.ServiceController" />
+    <Compile Include="../HealthCheckResultTask.cs" />
+    <Compile Include="..\CallerArgumentExpressionAttribute.cs" Link="CallerArgumentExpressionAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetsWindows)' == 'true'">
+    <Compile Remove="WindowsServiceHealthCheck.cs" />
+  </ItemGroup>
+
+</Project>

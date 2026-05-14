@@ -1,0 +1,21 @@
+using HealthChecks.UI.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
+namespace Microsoft.Extensions.DependencyInjection;
+
+public static class HealthChecksUIBuilderExtensions
+{
+    public static HealthChecksUIBuilder AddInMemoryStorage(this HealthChecksUIBuilder builder, Action<DbContextOptionsBuilder>? configureOptions = null, string databaseName = "HealthChecksUI")
+    {
+        builder.Services.AddDbContext<HealthChecksDb>(options =>
+        {
+            configureOptions?.Invoke(options);
+            options.UseInMemoryDatabase(databaseName)
+                   .ConfigureWarnings(warnings => warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                   .EnableSensitiveDataLogging(false);
+        });
+
+        return builder;
+    }
+}

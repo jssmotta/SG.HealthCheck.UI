@@ -1,0 +1,2195 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primaryColor: #5ec297;
+  --secondaryColor: #349b72;
+  --darkColor: #000000;
+  --midDarkColor: #2f313a;
+  --grayColor: #444444;
+  --midGrayColor: #ebebeb;
+  --lightColor: #f6f6f7;
+  --dangerColor: #d26b4e;
+  --warningColor: #ff8f30;
+  --successColor: #3aaa97;
+  --ffBase: 'Roboto', sans-serif;
+
+  --bgMain: var(--lightColor);
+  --bgSecondary: #ffffff;
+  --fcNegative: #ffffff;
+  --fcBase: var(--grayColor);
+  --fcAction: var(--primaryColor);
+  --bgAside: var(--midDarkColor);
+  --bgMenuActive: var(--darkColor);
+  --bcMenuActive: var(--primaryColor);
+  --bcInput: var(--midGrayColor);
+  --bcInputHover: var(--primaryColor);
+  --bgInputHover: var(--primaryColor);
+  --fcInputHover: var(--primaryColor);
+  --bcTable: var(--midGrayColor);
+  --bgTable: var(--bgSecondary);
+  --bgTableSecondary: var(--midGrayColor);
+  --bgTableButton: var(--bgSecondary);
+  --bgButton: var(--secondaryColor);
+  --bgImageDarken: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  --bgImageLigthen: linear-gradient(
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.8)
+  );
+  --bgBulletTimeline: var(--primaryColor);
+  --bgLineTimeline: var(--midGrayColor);
+  --bcEventTimeline: var(--midGrayColor);
+  --logoImageUrl: url('https://avatars3.githubusercontent.com/u/25212406?s=460&v=4');
+}
+
+input,
+input:focus,
+button,
+button:focus {
+  outline: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ol,
+ul {
+  list-style-type: none;
+}
+
+button {
+  outline: none;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--fcBase);
+}
+
+button:focus {
+  outline: none;
+}
+
+html {
+  height: 100%;
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--ffBase);
+  font-weight: normal;
+  font-size: 0.875rem;
+  color: var(--fcBase);
+  background-color: var(--bgMain);
+}
+
+main {
+  height: 100%;
+  display: flex;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1em 0;
+}
+
+h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0.8em 0;
+}
+
+h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0.7em 0;
+}
+
+#app {
+  height: 100%;
+}
+
+.discovery-icon {
+  width: 1.25rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 0.25rem;
+}
+
+.hc-section-router {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 2rem;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.hc-aside {
+  width: 3rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: var(--bgAside);
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.hc-aside.is-open {
+  width: 12rem;
+}
+
+.hc-aside__logo {
+  background-image: var(--logoImageUrl);
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  margin: 0.5rem 0;
+  transition: all ease-in 0.2s;
+}
+
+.hc-aside.is-open .hc-aside__logo {
+  height: 4rem;
+  width: 4rem;
+  min-width: 4rem;
+}
+
+.hc-aside__open-btn {
+  border-width: 0;
+  cursor: pointer;
+  width: 3rem;
+  margin-top: 0.5rem;
+}
+
+.hc-aside__open-btn .material-icons {
+  font-size: 2rem;
+  color: var(--fcNegative);
+}
+
+.hc-aside-menu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1rem;
+  align-self: flex-start;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.hc-aside-menu__item {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  color: var(--fcNegative);
+  border-width: 0 0 0 4px;
+  border-style: solid;
+  border-color: transparent;
+  text-decoration: none;
+}
+
+.hc-aside-menu__item:visited {
+  text-decoration: none;
+}
+
+.hc-aside-menu__item:hover,
+.hc-aside-menu__item.hc-aside-menu__item--active {
+  border-color: var(--bcMenuActive);
+  background-color: var(--bgMenuActive);
+  color: var(--fcNegative);
+  text-decoration: none;
+}
+
+.hc-aside-menu__item img {
+  width: 1.5rem;
+  margin-right: 1rem;
+}
+
+.hc-table {
+  width: 100%;
+}
+
+.hc-table__head {
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--fcBase);
+}
+.hc-table__head tr {
+  height: 3rem;
+}
+
+.hc-table__row {
+  cursor: pointer;
+  background-color: var(--bgTable);
+  border-bottom: 4px solid var(--bgMain);
+}
+
+.hc-table__row td {
+  padding: 0.5rem;
+}
+
+.hc-table__row:hover {
+  background-color: var(--primaryColor);
+  background-image: var(--bgImageLigthen);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.hc-checks-table-container {
+  animation: fadeIn 1s;
+}
+
+.hc-checks-table-container.is-hidden {
+  display: none;
+  animation: fadeOut 1s;
+}
+
+/* Prefer this over .is-hidden: avoids clash with other bundled CSS (e.g. vertical-timeline .is-hidden). */
+.hc-checks-table-container.hc-details-row--collapsed {
+  display: none;
+  animation: fadeOut 1s;
+}
+
+.hc-checks-table-container > td {
+  padding: 0;
+  padding-bottom: 0.25rem;
+}
+
+.hc-checks-table {
+  width: 100%;
+}
+
+.hc-checks-table__header tr {
+  height: 2rem;
+}
+
+.hc-checks-table__body td,
+.hc-checks-table__header th {
+  padding: 0.5rem;
+}
+
+.hc-checks-table__body td {
+  background: var(--bgTable);
+  border: 1px solid var(--bcTable);
+}
+
+.hc-checks-table__body td:first-child {
+  border-width: 1px 1px 1px 0;
+}
+
+.hc-checks-table__body td:last-child {
+  border-width: 1px 0 1px 1px;
+}
+
+.hc-checks-table__header th {
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.5em;
+  background-color: var(--bgTableSecondary);
+}
+
+.hc-button {
+  text-align: center;
+  line-height: 1.2;
+  vertical-align: middle;
+  border-radius: 0;
+  background-color: var(--bgButton);
+  color: var(--fcNegative);
+  padding: 0.5rem;
+  height: 2rem;
+  min-width: 3.5rem;
+}
+
+.hc-button:hover {
+  background-image: var(--bgImageDarken);
+}
+
+.hc-button:focus {
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.50);
+}
+
+.hc-liveness {
+  display: flex;
+  flex-direction: column;
+}
+
+.hc-liveness__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hc-refesh-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hc-refesh-group input {
+  border: 1px solid var(--bcInput);
+  border-radius: 0;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  max-width: 5rem;
+  height: 2rem;
+}
+
+.hc-refesh-group input:hover,
+.hc-refesh-group input:focus {
+  border-color: transparent;
+  border-bottom: 2px solid var(--bcInputHover);
+  background-color: var(--bgInputHover);
+  color: var(--fcInputHover);
+  background-image: var(--bgImageLigthen);
+}
+
+.hc-refesh-group .hc-button {
+  margin-left: 1rem;
+}
+
+.hc-liveness__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hc-webhooks-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+}
+
+@media only screen and (max-width: 1679px) {
+  .hc-webhooks-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 1259px) {
+  .hc-webhooks-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.webhook-card {
+  background-color: var(--bgSecondary);
+  box-shadow: 0 0.375em 1em 0 rgba(0, 0, 0, 0.1);
+  padding: 2rem 1rem;
+  border-radius: 5px;
+}
+
+.webhook-card p {
+  margin: 0.25rem;
+}
+
+.hc-action-btn {
+  border: 0;
+  background: transparent;
+  color: var(--fcBase);
+}
+
+.hc-action-btn:hover {
+  color: var(--fcAction);
+}
+
+.hc-status {
+  display: flex;
+  align-items: center;
+}
+
+.hc-liveness-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30rem;
+    height: 100vh;
+    z-index: 900;
+    display: block;
+    padding: 1rem;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: var(--bgSecondary);
+    box-shadow: 0 0.375em 1em 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.hc-liveness-detail {
+    display: flex;
+    flex-direction: column;
+    height: 100%;    
+}
+
+.hc-liveness-detail--open {
+    display: block;
+}
+
+.hc-liveness-detail__body {
+    flex-grow: 1;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.hc-liveness-detail .hc-status {
+  font-size: 0.75rem;
+}
+.hc-liveness-detail header {
+  padding-bottom: 1rem;
+}
+
+.hc-timeline.vertical-timeline {
+  margin: 0;
+  padding: 0 1rem;
+  height: fit-content;
+}
+
+.hc-timeline.vertical-timeline::before {
+  background-color: var(--bgLineTimeline);
+  left: 22px;
+}
+
+.hc-timeline.vertical-timeline .hc-timeline__event {
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.hc-timeline.vertical-timeline .vertical-timeline-element-icon {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  box-shadow: none;
+  background-color: var(--bgBulletTimeline);
+}
+
+@media only screen and (min-width: 1170px) {
+  .hc-timeline.vertical-timeline.vertical-timeline--two-columns
+    .vertical-timeline-element-icon {
+    margin-left: -8px;
+  }
+}
+
+.hc-timeline.vertical-timeline .vertical-timeline-element-content {
+  box-shadow: none;
+  border: 1px solid var(--bcEventTimeline);
+  border-radius: 0;
+  padding: 1rem;
+}
+
+.hc-timeline.vertical-timeline .vertical-timeline-element-content p {
+  margin: 0;
+}
+
+.hc-timeline.vertical-timeline .vertical-timeline-element-content::before {
+  display: none;
+}
+
+.hc-timeline.vertical-timeline .vertical-timeline-element-content h3 {
+  margin: 0;
+}
+
+.hc-timeline.vertical-timeline
+  .vertical-timeline-element-content
+  span.vertical-timeline-element-date {
+  font-size: 0.75rem;
+}
+
+.hc-liveness-panel.hc-liveness-panel--open {
+  right: 0;
+  display: block;
+}
+
+.hc-liveness-panel .hc-action-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.react-json-view {
+  margin-top: 0.5rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.break-word {
+  word-break: break-all;
+}
+
+.alert-panel {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem; 
+  color: #000!important;
+  background-color: #ffdddd!important;  
+  display:flex;
+  align-items: center;
+}
+
+.tag {
+  background-color: var(--primaryColor);
+  color: white;
+  font-size: 10px;  
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  margin-right: 2px;
+  margin-left: 2px;
+  min-width: 4px;
+  max-width: 112px;  
+  border: 1px solid;
+  display: inline-block;
+}
+
+/* Imported overrides from SG Guardian HealthCheckUI.css */
+:root {
+    /* Modern Color Palette */
+    --bgMain: #f8f9fa; /* Lighter background for better contrast */
+    --fcBase: #343a40; /* Darker font for better readability */
+    --primaryColor: #1a73e8; /* Modern blue from Google's design system */
+    --secondaryColor: #ff5722; /* Vibrant orange for accents */
+    --bgMenuActive: var(--primaryColor); /* Use primary color for active menu */
+    --bcMenuActive: var(--secondaryColor); /* Orange border for active menu item */
+    --bgButton: var(--primaryColor); /* Consistent button styling */ 
+    --bgAside: #1a73e8; /* Darker sidebar for contrast */
+    --bgTable: #ffffff; /* White table background */
+    --bgTableSecondary: #f1f3f5; /* Light gray for alternating rows */
+    /* Additional Modern Variables */
+    --borderRadius: 8px; /* Rounded corners */
+    --boxShadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    --transition: all 0.3s ease; /* Smooth transitions */
+    --spacing: 16px; /* Consistent spacing */
+}
+
+/* Global Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--fcBase);
+    background-color: var(--bgMain);
+    line-height: 1.5;
+}
+
+.hc-menu-icon {
+    display: none; /* Esconde o ícone do menu para uma aparência mais limpa */
+}
+/* Buttons */
+button, .btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: var(--borderRadius);
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: var(--transition);
+    box-shadow: var(--boxShadow);
+}
+
+    button:hover, .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: var(--spacing) 0;
+    border-radius: var(--borderRadius);
+    overflow: hidden;
+    box-shadow: var(--boxShadow);
+}
+
+th {
+    background-color: var(--primaryColor);
+    color: #ff6633; /* Changed to the specified orange color */
+    font-weight: 600;
+    text-align: left;
+    padding: 12px var(--spacing);
+}
+
+td {
+    padding: 12px var(--spacing);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+tr:nth-child(even) {
+    background-color: var(--bgTableSecondary);
+}
+
+tr:hover {
+    background-color: rgba(26, 115, 232, 0.05);
+}
+
+/* Tag Styling */
+.tag {
+    background-color: #38b2ac !important; /* Teal color */
+    color: white;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+/* Counter styling */
+.hc-checks-table {
+    counter-reset: rowNumber -1;
+}
+
+    .hc-checks-table tr {
+        counter-increment: rowNumber;
+    }
+
+        .hc-checks-table tr td:first-child::before {
+            content: counter(rowNumber);
+            min-width: 1.5em;
+            margin-right: 0.75em;
+            font-weight: 600;
+            color: var(--primaryColor);
+        }
+
+/* Navigation */
+nav, aside {
+    background-color: var(--bgAside);
+    color: white;
+}
+
+a {
+    color: var(--primaryColor);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+    a:hover {
+        color: var(--secondaryColor);
+    }
+
+/* Menu items */
+.menu-item, .nav-link {
+    padding: 12px var(--spacing);
+    border-radius: var(--borderRadius);
+    margin-bottom: 8px;
+    transition: var(--transition);
+}
+
+    .menu-item.active, .nav-link.active {
+        background-color: var(--bgMenuActive);
+        border-left: 4px solid var(--bcMenuActive);
+        color: white;
+    }
+
+/* Cards */
+.card {
+    background-color: white;
+    border-radius: var(--borderRadius);
+    box-shadow: var(--boxShadow);
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
+    transition: var(--transition);
+}
+
+    .card:hover {
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* System Link */
+a[href="#/healthchecks"] span {
+    display: none;
+}
+
+a[href="#/healthchecks"]::after {
+    content: "Sistema";
+    font-weight: 500;
+}
+
+
+
+
+/* Estilo moderno e sofisticado para hc-status */
+.hc-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Efeito de brilho em hover */
+    .hc-status:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hc-status:after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient( to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100% );
+        transform: rotate(30deg);
+        transition: transform 0.7s;
+        opacity: 0;
+    }
+
+    .hc-status:hover:after {
+        transform: rotate(30deg) translate(100%, 100%);
+        opacity: 1;
+    }
+
+/* Status específicos com design refinado */
+.hc-status-healthy {
+    background: linear-gradient(135deg, #00c853, #4caf50);
+    color: white;
+    border-left: 3px solid #388e3c;
+}
+
+.hc-status-degraded {
+    background: linear-gradient(135deg, #ffa726, #ff9800);
+    color: white;
+    border-left: 3px solid #ef6c00;
+}
+
+.hc-status-unhealthy {
+    background: linear-gradient(135deg, #ef5350, #f44336);
+    color: white;
+    border-left: 3px solid #d32f2f;
+}
+
+    /* Ícones para cada status */
+    .hc-status-healthy:before,
+    .hc-status-degraded:before,
+    .hc-status-unhealthy:before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+.hc-status-healthy:before {
+    background-color: white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.hc-status-degraded:before {
+    background-color: white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.hc-status-unhealthy:before {
+    background-color: white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Status em tabelas */
+.hc-checks-table .hc-status {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+}
+
+/* Animação para status alternativos (pode ser usado para indicar carregamento ou transição) */
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
+}
+
+.hc-status-loading {
+    background: linear-gradient(135deg, #42a5f5, #2196f3);
+    color: white;
+    border-left: 3px solid #1976d2;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Display em modo dark */
+@media (prefers-color-scheme: dark) {
+    .hc-status {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+        .hc-status:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+}
+
+
+/* Estilo Ultra Moderno para hc-status - Versão Apenas CSS */
+
+/* Estilo base para todos os status */
+.hc-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin: 8px 0;
+    text-transform: uppercase;
+    min-width: 120px;
+    /* Define o fundo padrão para ser sobrescrito */
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+    color: white;
+    border-left: 3px solid #20A162;
+}
+
+    /* Resetando estilos inline do ícone */
+    .hc-status .material-icons {
+        padding-right: 0.5rem;
+        font-size: 1.2rem;
+        color: white !important; /* Sobrescreve cor inline */
+    }
+
+    /* Efeito hover sofisticado */
+    .hc-status:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Efeito de brilho com glassmorphism */
+    .hc-status::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient( to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) );
+        z-index: 0;
+        border-radius: 12px 12px 24px 24px;
+    }
+
+    /* Posicionamento do conteúdo acima do efeito de brilho */
+    .hc-status .material-icons,
+    .hc-status span {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Status específicos baseados no conteúdo - CSS puro */
+
+    /* Healthy - Verde (padrão) */
+    /* Já definido no estilo base acima */
+
+    /* Degraded - Amarelo/Laranja - Baseado em conteúdo */
+    .hc-status:has(.material-icons[style*="warning"]),
+    .hc-status:has(.material-icons:contains("warning")),
+    .hc-status:-webkit-any(:contains("Degraded"), :contains("degraded")) {
+        background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #E0821E !important;
+    }
+
+    /* Unhealthy - Vermelho - Baseado em conteúdo */
+    .hc-status:has(.material-icons[style*="error"]),
+    .hc-status:has(.material-icons:contains("error")),
+    .hc-status:-webkit-any(:contains("Unhealthy"), :contains("unhealthy")) {
+        background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #DC3545 !important;
+    }
+
+    /* Método alternativo usando atributos para compatibilidade */
+    .hc-status[data-status="Degraded"] {
+        background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #E0821E !important;
+    }
+
+    .hc-status[data-status="Unhealthy"] {
+        background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #DC3545 !important;
+    }
+
+/* Opção mais específica - sobrescreve com !important para garantir */
+div.hc-status:nth-child(n):has(i.material-icons[style*="color: var(--warningColor)"]) {
+    background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+    color: white !important;
+    border-left: 3px solid #E0821E !important;
+}
+
+div.hc-status:nth-child(n):has(i.material-icons[style*="color: var(--dangerColor)"]) {
+    background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+    color: white !important;
+    border-left: 3px solid #DC3545 !important;
+}
+
+/* Animação de borda brilhante */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.hc-status:hover .material-icons {
+    animation: glow 1.5s infinite;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hc-status {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+        .hc-status .material-icons {
+            font-size: 1rem;
+        }
+}
+
+/* Status em containers específicos */
+.card .hc-status,
+.table .hc-status {
+    margin: 4px 0;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+}
+
+/* CSS para cores específicas dos ícones (para casos onde o estilo inline não pode ser removido) */
+.hc-status .material-icons[style*="color: var(--successColor)"] {
+    color: white !important;
+}
+
+.hc-status .material-icons[style*="color: var(--warningColor)"] {
+    color: white !important;
+}
+
+.hc-status .material-icons[style*="color: var(--dangerColor)"] {
+    color: white !important;
+}
+
+/* Abordagem alternativa por classes específicas se precisar adicionar classes no HTML */
+.hc-status.healthy {
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+    color: white;
+    border-left: 3px solid #20A162;
+}
+
+.hc-status.degraded {
+    background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9));
+    color: white;
+    border-left: 3px solid #E0821E;
+}
+
+.hc-status.unhealthy {
+    background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9));
+    color: white;
+    border-left: 3px solid #DC3545;
+}
+
+/* CSS Moderno Completo - Sem alterações de HTML necessárias */
+
+/* ===== ESTILO PARA hc-status ===== */
+.hc-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin: 8px 0;
+    text-transform: uppercase;
+    min-width: 120px;
+    /* Definição padrão para Healthy */
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+    color: white !important;
+    border-left: 3px solid #20A162;
+}
+
+    /* Efeito hover sofisticado */
+    .hc-status:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Efeito de brilho com glassmorphism */
+    .hc-status::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient( to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) );
+        z-index: 0;
+        border-radius: 12px 12px 24px 24px;
+    }
+
+    /* Garantir que ícones e texto sejam visíveis acima do efeito de brilho */
+    .hc-status i,
+    .hc-status .material-icons {
+        position: relative;
+        z-index: 1;
+        margin-right: 8px;
+        color: white !important;
+    }
+
+    /* Detectar e estilizar baseado no conteúdo do ícone */
+    .hc-status:has(.material-icons:contains("warning")),
+    .hc-status:has(.material-icons[style*="color: var(--warningColor)"]) {
+        background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #E0821E !important;
+    }
+
+    .hc-status:has(.material-icons:contains("error")),
+    .hc-status:has(.material-icons[style*="color: var(--dangerColor)"]) {
+        background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #DC3545 !important;
+    }
+
+    .hc-status:has(.material-icons:contains("info")),
+    .hc-status:has(.material-icons[style*="color: var(--infoColor)"]) {
+        background: linear-gradient(135deg, rgba(66, 165, 245, 0.85), rgba(33, 150, 243, 0.9)) !important;
+        color: white !important;
+        border-left: 3px solid #2196F3 !important;
+    }
+
+/* Animação de brilho para ícones */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.hc-status:hover .material-icons {
+    animation: glow 1.5s infinite;
+}
+
+/* ===== ESTILO PARA ÍCONES EM CÉLULAS DE TABELA ===== */
+
+/* Estilo base para células com ícones */
+td.align-center {
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 12px 16px;
+}
+
+    /* Transformação do ícone */
+    td.align-center .material-icons {
+        font-size: 1.25rem;
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        padding: 0 !important; /* Importante: sobrescreve padding-right inline */
+        color: white !important; /* Importante: sobrescreve cor inline */
+    }
+
+        /* Fundo do ícone */
+        td.align-center .material-icons::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* Efeito de brilho superior */
+        td.align-center .material-icons::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 40%;
+            background: linear-gradient( to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1) );
+            border-radius: 50% 50% 100% 100%;
+            z-index: 2;
+        }
+
+        /* Efeito hover */
+        td.align-center .material-icons:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+/* Efeito de pulso para borda em hover */
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4), 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0), 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
+td.align-center .material-icons:hover {
+    animation: pulse-border 1.5s infinite;
+}
+
+/* Detecção de tipo de ícone baseado no conteúdo ou estilo */
+
+/* Success (Verde) */
+td.align-center .material-icons[style*="color: var(--successColor)"],
+td.align-center .material-icons:contains("check_circle") {
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.95), rgba(32, 161, 98, 0.95));
+}
+
+    td.align-center .material-icons[style*="color: var(--successColor)"]::before,
+    td.align-center .material-icons:contains("check_circle")::before {
+        background: linear-gradient(135deg, rgba(46, 213, 115, 0.95), rgba(32, 161, 98, 0.95));
+    }
+
+/* Warning (Amarelo/Laranja) */
+td.align-center .material-icons[style*="color: var(--warningColor)"],
+td.align-center .material-icons:contains("warning") {
+    background: linear-gradient(135deg, rgba(255, 159, 67, 0.95), rgba(224, 130, 30, 0.95));
+}
+
+    td.align-center .material-icons[style*="color: var(--warningColor)"]::before,
+    td.align-center .material-icons:contains("warning")::before {
+        background: linear-gradient(135deg, rgba(255, 159, 67, 0.95), rgba(224, 130, 30, 0.95));
+    }
+
+/* Error/Danger (Vermelho) */
+td.align-center .material-icons[style*="color: var(--dangerColor)"],
+td.align-center .material-icons:contains("error") {
+    background: linear-gradient(135deg, rgba(247, 78, 78, 0.95), rgba(220, 53, 69, 0.95));
+}
+
+    td.align-center .material-icons[style*="color: var(--dangerColor)"]::before,
+    td.align-center .material-icons:contains("error")::before {
+        background: linear-gradient(135deg, rgba(247, 78, 78, 0.95), rgba(220, 53, 69, 0.95));
+    }
+
+/* Info (Azul) */
+td.align-center .material-icons[style*="color: var(--infoColor)"],
+td.align-center .material-icons:contains("info") {
+    background: linear-gradient(135deg, rgba(66, 165, 245, 0.95), rgba(33, 150, 243, 0.95));
+}
+
+    td.align-center .material-icons[style*="color: var(--infoColor)"]::before,
+    td.align-center .material-icons:contains("info")::before {
+        background: linear-gradient(135deg, rgba(66, 165, 245, 0.95), rgba(33, 150, 243, 0.95));
+    }
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .hc-status {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    td.align-center .material-icons {
+        font-size: 1rem;
+        height: 30px;
+        width: 30px;
+    }
+}
+
+/* ===== FALLBACKS PARA COMPATIBILIDADE ===== */
+
+/* Para navegadores que não suportam :has() ou :contains() */
+/* Estas alternativas não funcionarão tão bem, mas oferecem algum estilo */
+
+/* Fallback para detecção de conteúdo em hc-status */
+.hc-status .material-icons[style*="color: var(--warningColor)"] + * {
+    background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+}
+
+.hc-status .material-icons[style*="color: var(--dangerColor)"] + * {
+    background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+}
+
+.hc-status .material-icons[style*="color: var(--infoColor)"] + * {
+    background: linear-gradient(135deg, rgba(66, 165, 245, 0.85), rgba(33, 150, 243, 0.9)) !important;
+}
+
+/* Estilos para garantir que os ícones em tabelas fiquem visíveis */
+td.align-center .material-icons {
+    background-color: #28a745; /* Cor padrão se os gradientes não funcionarem */
+}
+
+    td.align-center .material-icons[style*="color: var(--warningColor)"] {
+        background-color: #ffc107;
+    }
+
+    td.align-center .material-icons[style*="color: var(--dangerColor)"] {
+        background-color: #dc3545;
+    }
+
+    td.align-center .material-icons[style*="color: var(--infoColor)"] {
+        background-color: #17a2b8;
+    }
+
+
+
+/* Make the container horizontally scrollable */
+.health-check-container {
+    width: 100%;
+    min-width: 600px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+}
+
+/* Ensure the table maintains its structure */
+.health-check-table {
+    min-width: 600px; /* Set minimum width to ensure all columns are visible */
+    table-layout: fixed;
+}
+
+
+
+:root {
+  /* Modern Color Palette */
+  --bgMain: #f8f9fa; /* Lighter background for better contrast */
+  --fcBase: #343a40; /* Darker font for better readability */
+  --primaryColor: #1a73e8; /* Modern blue from Google's design system */
+  --secondaryColor: #ff5722; /* Vibrant orange for accents */
+  --bgMenuActive: var(--primaryColor); /* Use primary color for active menu */
+  --bcMenuActive: var(--secondaryColor); /* Orange border for active menu item */
+  --bgButton: var(--primaryColor); /* Consistent button styling */
+  --logoImageUrl: url('https://api.SG.net.br/assets/img/SG.Logo.png') !important;
+  --bgAside: #1a73e8; /* Darker sidebar for contrast */
+  --bgTable: #ffffff; /* White table background */
+  --bgTableSecondary: #f1f3f5; /* Light gray for alternating rows */
+  /* Additional Modern Variables */
+  --borderRadius: 8px; /* Rounded corners */
+  --boxShadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  --transition: all 0.3s ease; /* Smooth transitions */
+  --spacing: 16px; /* Consistent spacing */
+}
+
+/* Global Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--fcBase);
+  background-color: var(--bgMain);
+  line-height: 1.5;
+}
+
+/* Buttons */
+button, .btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: var(--borderRadius);
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: var(--transition);
+  box-shadow: var(--boxShadow);
+}
+
+  button:hover, .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+  }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: var(--spacing) 0;
+  border-radius: var(--borderRadius);
+  overflow: hidden;
+  box-shadow: var(--boxShadow);
+}
+
+th {
+  background-color: var(--primaryColor);
+  color: #ff6633; /* Changed to the specified orange color */
+  font-weight: 600;
+  text-align: left;
+  padding: 12px var(--spacing);
+}
+
+td {
+  padding: 12px var(--spacing);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+tr:nth-child(even) {
+  background-color: var(--bgTableSecondary);
+}
+
+tr:hover {
+  background-color: rgba(26, 115, 232, 0.05);
+}
+
+/* Tag Styling */
+.tag {
+  background-color: #38b2ac !important; /* Teal color */
+  color: white;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Counter styling */
+.hc-checks-table {
+  counter-reset: rowNumber -1;
+}
+
+  .hc-checks-table tr {
+      counter-increment: rowNumber;
+  }
+
+      .hc-checks-table tr td:first-child::before {
+          content: counter(rowNumber);
+          min-width: 1.5em;
+          margin-right: 0.75em;
+          font-weight: 600;
+          color: var(--primaryColor);
+      }
+
+/* Navigation */
+nav, aside {
+  background-color: var(--bgAside);
+  color: white;
+}
+
+a {
+  color: var(--primaryColor);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+  a:hover {
+      color: var(--secondaryColor);
+  }
+
+/* Menu items */
+.menu-item, .nav-link {
+  padding: 12px var(--spacing);
+  border-radius: var(--borderRadius);
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+
+  .menu-item.active, .nav-link.active {
+      background-color: var(--bgMenuActive);
+      border-left: 4px solid var(--bcMenuActive);
+      color: white;
+  }
+
+/* Cards */
+.card {
+  background-color: white;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--boxShadow);
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  transition: var(--transition);
+}
+
+  .card:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+/* System Link */
+a[href="#/healthchecks"] span {
+  display: none;
+}
+
+a[href="#/healthchecks"]::after {
+  content: "Sistema";
+  font-weight: 500;
+}
+
+
+
+
+/* Estilo moderno e sofisticado para hc-status */
+.hc-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+  /* Efeito de brilho em hover */
+  .hc-status:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .hc-status:after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient( to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100% );
+      transform: rotate(30deg);
+      transition: transform 0.7s;
+      opacity: 0;
+  }
+
+  .hc-status:hover:after {
+      transform: rotate(30deg) translate(100%, 100%);
+      opacity: 1;
+  }
+
+/* Status específicos com design refinado */
+.hc-status-healthy {
+  background: linear-gradient(135deg, #00c853, #4caf50);
+  color: white;
+  border-left: 3px solid #388e3c;
+}
+
+.hc-status-degraded {
+  background: linear-gradient(135deg, #ffa726, #ff9800);
+  color: white;
+  border-left: 3px solid #ef6c00;
+}
+
+.hc-status-unhealthy {
+  background: linear-gradient(135deg, #ef5350, #f44336);
+  color: white;
+  border-left: 3px solid #d32f2f;
+}
+
+  /* Ícones para cada status */
+  .hc-status-healthy:before,
+  .hc-status-degraded:before,
+  .hc-status-unhealthy:before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+  }
+
+.hc-status-healthy:before {
+  background-color: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.hc-status-degraded:before {
+  background-color: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.hc-status-unhealthy:before {
+  background-color: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Status em tabelas */
+.hc-checks-table .hc-status {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+/* Animação para status alternativos (pode ser usado para indicar carregamento ou transição) */
+@keyframes pulse {
+  0% {
+      opacity: 0.7;
+  }
+
+  50% {
+      opacity: 1;
+  }
+
+  100% {
+      opacity: 0.7;
+  }
+}
+
+.hc-status-loading {
+  background: linear-gradient(135deg, #42a5f5, #2196f3);
+  color: white;
+  border-left: 3px solid #1976d2;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Display em modo dark */
+@media (prefers-color-scheme: dark) {
+  .hc-status {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+      .hc-status:hover {
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      }
+}
+
+
+/* Estilo Ultra Moderno para hc-status - Versão Apenas CSS */
+
+/* Estilo base para todos os status */
+.hc-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0;
+  text-transform: uppercase;
+  min-width: 120px;
+  /* Define o fundo padrão para ser sobrescrito */
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+  color: white;
+  border-left: 3px solid #20A162;
+}
+
+  /* Resetando estilos inline do ícone */
+  .hc-status .material-icons {
+      padding-right: 0.5rem;
+      font-size: 1.2rem;
+      color: white !important; /* Sobrescreve cor inline */
+  }
+
+  /* Efeito hover sofisticado */
+  .hc-status:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Efeito de brilho com glassmorphism */
+  .hc-status::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient( to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) );
+      z-index: 0;
+      border-radius: 12px 12px 24px 24px;
+  }
+
+  /* Posicionamento do conteúdo acima do efeito de brilho */
+  .hc-status .material-icons,
+  .hc-status span {
+      position: relative;
+      z-index: 1;
+  }
+
+  /* Status específicos baseados no conteúdo - CSS puro */
+
+  /* Healthy - Verde (padrão) */
+  /* Já definido no estilo base acima */
+
+  /* Degraded - Amarelo/Laranja - Baseado em conteúdo */
+  .hc-status:has(.material-icons[style*="warning"]),
+  .hc-status:has(.material-icons:contains("warning")),
+  .hc-status:-webkit-any(:contains("Degraded"), :contains("degraded")) {
+      background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #E0821E !important;
+  }
+
+  /* Unhealthy - Vermelho - Baseado em conteúdo */
+  .hc-status:has(.material-icons[style*="error"]),
+  .hc-status:has(.material-icons:contains("error")),
+  .hc-status:-webkit-any(:contains("Unhealthy"), :contains("unhealthy")) {
+      background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #DC3545 !important;
+  }
+
+  /* Método alternativo usando atributos para compatibilidade */
+  .hc-status[data-status="Degraded"] {
+      background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #E0821E !important;
+  }
+
+  .hc-status[data-status="Unhealthy"] {
+      background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #DC3545 !important;
+  }
+
+/* Opção mais específica - sobrescreve com !important para garantir */
+div.hc-status:nth-child(n):has(i.material-icons[style*="color: var(--warningColor)"]) {
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+  color: white !important;
+  border-left: 3px solid #E0821E !important;
+}
+
+div.hc-status:nth-child(n):has(i.material-icons[style*="color: var(--dangerColor)"]) {
+  background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+  color: white !important;
+  border-left: 3px solid #DC3545 !important;
+}
+
+/* Animação de borda brilhante */
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+
+  100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.hc-status:hover .material-icons {
+  animation: glow 1.5s infinite;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hc-status {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+  }
+
+      .hc-status .material-icons {
+          font-size: 1rem;
+      }
+}
+
+/* Status em containers específicos */
+.card .hc-status,
+.table .hc-status {
+  margin: 4px 0;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+}
+
+/* CSS para cores específicas dos ícones (para casos onde o estilo inline não pode ser removido) */
+.hc-status .material-icons[style*="color: var(--successColor)"] {
+  color: white !important;
+}
+
+.hc-status .material-icons[style*="color: var(--warningColor)"] {
+  color: white !important;
+}
+
+.hc-status .material-icons[style*="color: var(--dangerColor)"] {
+  color: white !important;
+}
+
+/* Abordagem alternativa por classes específicas se precisar adicionar classes no HTML */
+.hc-status.healthy {
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+  color: white;
+  border-left: 3px solid #20A162;
+}
+
+.hc-status.degraded {
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9));
+  color: white;
+  border-left: 3px solid #E0821E;
+}
+
+.hc-status.unhealthy {
+  background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9));
+  color: white;
+  border-left: 3px solid #DC3545;
+}
+
+/* CSS Moderno Completo - Sem alterações de HTML necessárias */
+
+/* ===== ESTILO PARA hc-status ===== */
+.hc-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0;
+  text-transform: uppercase;
+  min-width: 120px;
+  /* Definição padrão para Healthy */
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.85), rgba(32, 161, 98, 0.9));
+  color: white !important;
+  border-left: 3px solid #20A162;
+}
+
+  /* Efeito hover sofisticado */
+  .hc-status:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Efeito de brilho com glassmorphism */
+  .hc-status::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient( to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) );
+      z-index: 0;
+      border-radius: 12px 12px 24px 24px;
+  }
+
+  /* Garantir que ícones e texto sejam visíveis acima do efeito de brilho */
+  .hc-status i,
+  .hc-status .material-icons {
+      position: relative;
+      z-index: 1;
+      margin-right: 8px;
+      color: white !important;
+  }
+
+  /* Detectar e estilizar baseado no conteúdo do ícone */
+  .hc-status:has(.material-icons:contains("warning")),
+  .hc-status:has(.material-icons[style*="color: var(--warningColor)"]) {
+      background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #E0821E !important;
+  }
+
+  .hc-status:has(.material-icons:contains("error")),
+  .hc-status:has(.material-icons[style*="color: var(--dangerColor)"]) {
+      background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #DC3545 !important;
+  }
+
+  .hc-status:has(.material-icons:contains("info")),
+  .hc-status:has(.material-icons[style*="color: var(--infoColor)"]) {
+      background: linear-gradient(135deg, rgba(66, 165, 245, 0.85), rgba(33, 150, 243, 0.9)) !important;
+      color: white !important;
+      border-left: 3px solid #2196F3 !important;
+  }
+
+/* Animação de brilho para ícones */
+@keyframes glow {
+  0% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+
+  100% {
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.hc-status:hover .material-icons {
+  animation: glow 1.5s infinite;
+}
+
+/* ===== ESTILO PARA ÍCONES EM CÉLULAS DE TABELA ===== */
+
+/* Estilo base para células com ícones */
+td.align-center {
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 12px 16px;
+}
+
+  /* Transformação do ícone */
+  td.align-center .material-icons {
+      font-size: 1.25rem;
+      border-radius: 50%;
+      height: 36px;
+      width: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+      padding: 0 !important; /* Importante: sobrescreve padding-right inline */
+      color: white !important; /* Importante: sobrescreve cor inline */
+  }
+
+      /* Fundo do ícone */
+      td.align-center .material-icons::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 50%;
+          z-index: -1;
+      }
+
+      /* Efeito de brilho superior */
+      td.align-center .material-icons::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 20%;
+          right: 20%;
+          height: 40%;
+          background: linear-gradient( to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1) );
+          border-radius: 50% 50% 100% 100%;
+          z-index: 2;
+      }
+
+      /* Efeito hover */
+      td.align-center .material-icons:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+/* Efeito de pulso para borda em hover */
+@keyframes pulse-border {
+  0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4), 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  70% {
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0), 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+td.align-center .material-icons:hover {
+  animation: pulse-border 1.5s infinite;
+}
+
+/* Detecção de tipo de ícone baseado no conteúdo ou estilo */
+
+/* Success (Verde) */
+td.align-center .material-icons[style*="color: var(--successColor)"],
+td.align-center .material-icons:contains("check_circle") {
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.95), rgba(32, 161, 98, 0.95));
+}
+
+  td.align-center .material-icons[style*="color: var(--successColor)"]::before,
+  td.align-center .material-icons:contains("check_circle")::before {
+      background: linear-gradient(135deg, rgba(46, 213, 115, 0.95), rgba(32, 161, 98, 0.95));
+  }
+
+/* Warning (Amarelo/Laranja) */
+td.align-center .material-icons[style*="color: var(--warningColor)"],
+td.align-center .material-icons:contains("warning") {
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.95), rgba(224, 130, 30, 0.95));
+}
+
+  td.align-center .material-icons[style*="color: var(--warningColor)"]::before,
+  td.align-center .material-icons:contains("warning")::before {
+      background: linear-gradient(135deg, rgba(255, 159, 67, 0.95), rgba(224, 130, 30, 0.95));
+  }
+
+/* Error/Danger (Vermelho) */
+td.align-center .material-icons[style*="color: var(--dangerColor)"],
+td.align-center .material-icons:contains("error") {
+  background: linear-gradient(135deg, rgba(247, 78, 78, 0.95), rgba(220, 53, 69, 0.95));
+}
+
+  td.align-center .material-icons[style*="color: var(--dangerColor)"]::before,
+  td.align-center .material-icons:contains("error")::before {
+      background: linear-gradient(135deg, rgba(247, 78, 78, 0.95), rgba(220, 53, 69, 0.95));
+  }
+
+/* Info (Azul) */
+td.align-center .material-icons[style*="color: var(--infoColor)"],
+td.align-center .material-icons:contains("info") {
+  background: linear-gradient(135deg, rgba(66, 165, 245, 0.95), rgba(33, 150, 243, 0.95));
+}
+
+  td.align-center .material-icons[style*="color: var(--infoColor)"]::before,
+  td.align-center .material-icons:contains("info")::before {
+      background: linear-gradient(135deg, rgba(66, 165, 245, 0.95), rgba(33, 150, 243, 0.95));
+  }
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .hc-status {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+  }
+
+  td.align-center .material-icons {
+      font-size: 1rem;
+      height: 30px;
+      width: 30px;
+  }
+}
+
+/* ===== FALLBACKS PARA COMPATIBILIDADE ===== */
+
+/* Para navegadores que não suportam :has() ou :contains() */
+/* Estas alternativas não funcionarão tão bem, mas oferecem algum estilo */
+
+/* Fallback para detecção de conteúdo em hc-status */
+.hc-status .material-icons[style*="color: var(--warningColor)"] + * {
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.85), rgba(224, 130, 30, 0.9)) !important;
+}
+
+.hc-status .material-icons[style*="color: var(--dangerColor)"] + * {
+  background: linear-gradient(135deg, rgba(247, 78, 78, 0.85), rgba(220, 53, 69, 0.9)) !important;
+}
+
+.hc-status .material-icons[style*="color: var(--infoColor)"] + * {
+  background: linear-gradient(135deg, rgba(66, 165, 245, 0.85), rgba(33, 150, 243, 0.9)) !important;
+}
+
+/* Estilos para garantir que os ícones em tabelas fiquem visíveis */
+td.align-center .material-icons {
+  background-color: #28a745; /* Cor padrão se os gradientes não funcionarem */
+}
+
+  td.align-center .material-icons[style*="color: var(--warningColor)"] {
+      background-color: #ffc107;
+  }
+
+  td.align-center .material-icons[style*="color: var(--dangerColor)"] {
+      background-color: #dc3545;
+  }
+
+  td.align-center .material-icons[style*="color: var(--infoColor)"] {
+      background-color: #17a2b8;
+  }
+
+
+
+/* Make the container horizontally scrollable */
+.health-check-container {
+  width: 100%;
+  min-width: 600px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+}
+
+/* Ensure the table maintains its structure */
+.health-check-table {
+  min-width: 600px; /* Set minimum width to ensure all columns are visible */
+  table-layout: fixed;
+}
+
+/* Applied model differences using existing HealthChecks UI selectors */
+:root {
+  --bgMain: #f8f9fa;
+  --fcBase: #343a40;
+  --primaryColor: #1a73e8;
+  --secondaryColor: #ff5722;
+  --bgMenuActive: var(--primaryColor);
+  --bcMenuActive: var(--secondaryColor);
+  --bgButton: var(--primaryColor);
+  --bgAside: #1a73e8;
+  --bgTable: #ffffff;
+  --bgTableSecondary: #f1f3f5;
+  --logoImageUrl: url('/assets/img/SG.Logo.png') !important;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.hc-menu-icon {
+  display: none;
+}
+
+.hc-aside-menu__item {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.hc-aside-menu__item.hc-aside-menu__item--active,
+.hc-aside-menu__item:hover {
+  background-color: var(--bgMenuActive);
+  border-left: 4px solid var(--bcMenuActive);
+  color: #ffffff;
+}
+
+.hc-aside-menu__item[href="#/healthchecks"] span,
+a[href="/healthchecks"] span {
+  display: none;
+}
+
+.hc-aside-menu__item[href="#/healthchecks"]::after,
+a[href="/healthchecks"]::after {
+  content: "Sistema";
+  font-weight: 500;
+}
+
+.hc-table,
+.hc-checks-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hc-table__head th,
+.hc-checks-table__header th {
+  background-color: var(--primaryColor);
+  color: #ff6633;
+}
+
+.hc-table__row,
+.hc-checks-table__body tr:nth-child(even) td {
+  background-color: var(--bgTableSecondary);
+}
+
+.hc-table__row td,
+.hc-checks-table__body td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hc-table__row:hover {
+  background-color: rgba(26, 115, 232, 0.05);
+  background-image: none;
+}
+
+.tag {
+  background-color: #38b2ac !important;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 8px;
+  border: 0;
+}
+
+td.align-center .material-icons {
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 !important;
+  color: #ffffff !important;
+}

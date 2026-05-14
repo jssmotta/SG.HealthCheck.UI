@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>SG.HealthChecks.UI.Core</PackageId>
+    <TargetFramework>$(DefaultNetCoreApp)</TargetFramework>
+    <PackageTags>$(PackageTags);Core</PackageTags>
+    <Description>HealthChecks.UI.Core package containing builder and model definitions</Description>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
+

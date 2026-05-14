@@ -1,0 +1,1 @@
+cd "c:\github\SG.HealthCheck.UI\src\HealthChecks.UI" && npm run build
