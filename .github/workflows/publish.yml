@@ -1,5 +1,7 @@
-# Build, pack, and publish .NET packages to NuGet.org.
-# Version: set via PACKAGE_VERSION (repository variable), git tag v*, workflow input, or CI default.
+# Build, pack, and publish NuGet.org packages via Trusted Publishing (OIDC).
+# Configure a policy at nuget.org → Trusted Publishing for this repo, workflow file publish.yml,
+# and (recommended) environment production. NuGet username: repository variable NUGET_USERNAME.
+# Version: PACKAGE_VERSION variable, git tag v*, workflow_dispatch input, or CI default.
 name: Publish to NuGet
 
 on:
@@ -25,8 +27,10 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: production
     permissions:
       contents: read
+      id-token: write
 
     steps:
       - name: Checkout
@@ -80,17 +84,19 @@ jobs:
       - name: Pack meta-package (repository root)
         run: dotnet pack "SG.HealthCheck.csproj" -c "${CONFIGURATION}" -o "${GITHUB_WORKSPACE}/artifacts/nuget" -p:Version="${PACKAGE_VERSION}" -p:PackageVersion="${PACKAGE_VERSION}"
 
+      # Exchanges GitHub OIDC for a short-lived NuGet.org API key (Trusted Publishing).
+      - name: NuGet login (OIDC)
+        if: github.event_name != 'pull_request'
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ vars.NUGET_USERNAME }}
+
       - name: Publish to NuGet.org
         if: github.event_name != 'pull_request'
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "${NUGET_AUTH_TOKEN:-}" ]; then
-            echo "::error::Secret NUGET_AUTH_TOKEN is not configured. Add it under Settings → Secrets and variables → Actions."
-            exit 1
-          fi
           dotnet nuget push "${GITHUB_WORKSPACE}/artifacts/nuget"/*.nupkg \
-            --api-key "${NUGET_AUTH_TOKEN}" \
+            --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
             --source "https://api.nuget.org/v3/index.json" \
             --skip-duplicate

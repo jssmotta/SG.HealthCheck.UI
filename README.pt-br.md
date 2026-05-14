@@ -37,7 +37,7 @@ dotnet add package SG.HealthChecks
 dotnet add package SG.HealthChecks.UI
 ```
 
-**Versão:** defina a variável de ambiente **`PACKAGE_VERSION`** antes do `pack`, ou use o fluxo em [`.github/workflows/publish.yml`](.github/workflows/publish.yml) (tag `v*`, variável de repositório `PACKAGE_VERSION`, entrada manual ou `1.0.0-ci.*` na `main`). Detalhes e configuração do segredo **`NUGET_AUTH_TOKEN`** estão descritos em inglês na secção **NuGet packages** do [`README.md`](README.md).
+**Versão:** defina a variável de ambiente **`PACKAGE_VERSION`** antes do `pack`, ou use o fluxo em [`.github/workflows/publish.yml`](.github/workflows/publish.yml) (tag `v*`, variável de repositório `PACKAGE_VERSION`, entrada manual ou `1.0.0-ci.*` na `main`). Publicação no NuGet.org usa **Trusted Publishing** (OIDC); configure a política em nuget.org e a variável de repositório **`NUGET_USERNAME`**, conforme a secção **NuGet packages** do [`README.md`](README.md).
 
 ---
 
