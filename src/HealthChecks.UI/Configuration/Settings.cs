@@ -1,13 +1,22 @@
+using HealthChecks.UI;
+using HealthChecks.UI.Configuration;
 using HealthChecks.UI.Core;
 using HealthChecks.UI.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
-namespace HealthChecks.UI.Configuration;
+namespace HealthChecks.UI.Configuration
+{
 
 public class Settings
 {
+    private List<HealthCheckSetting> _healthChecks = new();
     internal Func<List<HealthCheckExecution>, Task>? ConfigureUIApiEndpointResult { get; set; }
-    internal List<HealthCheckSetting> HealthChecks { get; set; } = new List<HealthCheckSetting>();
+    internal List<HealthCheckSetting> HealthChecks
+    {
+        get => _healthChecks;
+        set => _healthChecks = value ?? new List<HealthCheckSetting>();
+    }
     internal List<WebHookNotification> Webhooks { get; set; } = new List<WebHookNotification>();
     internal bool DisableMigrations { get; set; } = false;
     internal int MaximumExecutionHistoriesPerEndpoint { get; private set; } = 100;
@@ -25,6 +34,9 @@ public class Settings
 
     public Settings AddHealthCheckEndpoint(string name, string uri)
     {
+        if (HealthChecks.Any(h => string.Equals(h.Uri, uri, StringComparison.OrdinalIgnoreCase)))
+            return this;
+
         HealthChecks.Add(new HealthCheckSetting
         {
             Name = name,
@@ -32,6 +44,26 @@ public class Settings
         });
 
         return this;
+    }
+
+    internal Settings DeduplicateHealthChecks()
+    {
+        _healthChecks = _healthChecks
+            .GroupBy(h => h.Uri, StringComparer.OrdinalIgnoreCase)
+            .Select(g => g.First())
+            .ToList();
+
+        return this;
+    }
+
+    internal Settings BindFromConfiguration(IConfiguration configuration)
+    {
+        configuration.GetSectionWithFallBack(
+                Keys.HEALTHCHECKSUI_SECTION_SETTING_KEY,
+                fallback: Keys.HEALTHCHECKSUI_OLD_SECTION_SETTING_KEY)
+            .Bind(this, c => c.BindNonPublicProperties = true);
+
+        return DeduplicateHealthChecks();
     }
 
     public Settings AddWebhookNotification(string name, string uri, string payload, string restorePayload = "", Func<string, UIHealthReport, bool>? shouldNotifyFunc = null, Func<string, UIHealthReport, string>? customMessageFunc = null, Func<string, UIHealthReport, string>? customDescriptionFunc = null)
@@ -156,4 +188,17 @@ public class WebHookNotification
     internal Func<string, UIHealthReport, bool>? ShouldNotifyFunc { get; set; }
     internal Func<string, UIHealthReport, string>? CustomMessageFunc { get; set; }
     internal Func<string, UIHealthReport, string>? CustomDescriptionFunc { get; set; }
+}
+
+}
+
+namespace Microsoft.Extensions.Configuration
+{
+    public static class SettingsConfigurationExtensions
+    {
+        public static Settings BindUISettings(this IConfiguration configuration, Settings settings)
+        {
+            return settings.BindFromConfiguration(configuration);
+        }
+    }
 }
