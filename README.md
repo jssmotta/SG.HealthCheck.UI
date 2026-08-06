@@ -48,10 +48,9 @@ The workflow [`.github/workflows/publish.yml`](.github/workflows/publish.yml) re
 
 1. Manual run: input **version** on `workflow_dispatch`.
 2. Push of a Git tag **`v*`** (for example `v2.1.0` → version `2.1.0`).
-3. Repository **variable** **`PACKAGE_VERSION`** (Settings → Secrets and variables → Actions → **Variables**) to pin a default version for `main` when you do not use tags or manual input.
-4. Otherwise on **`main`**: `1.0.0-ci.<GitHub run number>` (unique prerelease builds).
+3. Otherwise (including every push to **`main`**): **auto patch-bump** — the workflow queries NuGet.org for the latest **stable** version of **`SG.HealthChecks.UI`**, then publishes **`patch + 1`** (for example `1.0.0` → `1.0.1`). If the package does not exist yet, the first version is **`1.0.0`**.
 
-Use **`PACKAGE_VERSION`** when you want every `main` build to use a fixed semver until you change the variable; leave it unset to keep the automatic `1.0.0-ci.*` scheme.
+The repository variable **`PACKAGE_VERSION`** is **not** used by CI anymore (remove it if still set, or it will be ignored). Local **`./pack.ps1`** / **`PACKAGE_VERSION`** in the shell still work for manual packs.
 
 **Push command:** **`dotnet nuget push`** uses **`--api-key`** with **`${{ steps.nuget-login.outputs.NUGET_API_KEY }}`** — the short-lived key from [Trusted Publishing](https://learn.microsoft.com/nuget/nuget-org/trusted-publishing) via **`NuGet/login`**, not a long-lived repository secret. The [`dotnet nuget push`](https://learn.microsoft.com/dotnet/core/tools/dotnet-nuget-push) docs describe **`-k` / `--api-key`** as how to supply the key; they do **not** state that **`NUGET_AUTH_TOKEN` alone** (with no `--api-key`) is a supported substitute for pushing to **nuget.org**. The **`setup-dotnet`** examples for publishing typically use **`-k $NUGET_AUTH_TOKEN`**, i.e. the key is still passed into the command explicitly. This workflow therefore uses **`--api-key`** with the OIDC step output (no `secrets.NUGET_AUTH_TOKEN`).
 

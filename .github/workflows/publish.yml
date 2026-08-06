@@ -1,7 +1,7 @@
 # Build, pack, and publish NuGet.org packages via Trusted Publishing (OIDC).
 # Configure a policy at nuget.org → Trusted Publishing for this repo, workflow file publish.yml,
 # and (recommended) environment production. NuGet username: repository variable NUGET_USERNAME.
-# Version: PACKAGE_VERSION variable, git tag v*, workflow_dispatch input, or CI default.
+# Version: workflow_dispatch input, git tag v*, or auto patch-bump from NuGet.org on main.
 name: Publish to NuGet
 
 on:
@@ -22,7 +22,7 @@ env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
   # Use Node 24 for setup-node; opt Actions runtime to Node 24 (see GitHub deprecation of Node 20).
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  # Optional: set a repository/org variable named PACKAGE_VERSION to pin a default for main-branch builds.
+  # Auto patch-bump reads latest stable SG.HealthChecks.UI from NuGet.org (see Resolve package version).
   CONFIGURATION: Release
   NODE_VERSION: "24"
 
@@ -55,19 +55,51 @@ jobs:
       - name: Resolve package version
         shell: bash
         env:
-          REPO_PACKAGE_VERSION: ${{ vars.PACKAGE_VERSION }}
           INPUT_VERSION: ${{ inputs.version }}
+          NUGET_PACKAGE_ID: sg.healthchecks.ui
         run: |
           set -euo pipefail
+
+          bump_patch() {
+            local ver="${1%%-*}"
+            local major minor patch
+            IFS='.' read -r major minor patch <<< "$ver"
+            patch=$((10#${patch:-0} + 1))
+            echo "${major}.${minor}.${patch}"
+          }
+
+          resolve_from_nuget() {
+            local index_url="https://api.nuget.org/v3-flatcontainer/${NUGET_PACKAGE_ID}/index.json"
+            local http_code
+            http_code="$(curl -sS -o /tmp/nuget-index.json -w "%{http_code}" "$index_url")"
+            if [ "$http_code" = "404" ]; then
+              echo "1.0.0"
+              return
+            fi
+            if [ "$http_code" != "200" ]; then
+              echo "NuGet index request failed with HTTP ${http_code}" >&2
+              exit 1
+            fi
+            local latest_stable
+            latest_stable="$(jq -r '.versions[] | select(contains("-") | not)' /tmp/nuget-index.json | sort -V | tail -n1)"
+            if [ -z "$latest_stable" ]; then
+              echo "1.0.0"
+            else
+              bump_patch "$latest_stable"
+            fi
+          }
+
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ -n "${INPUT_VERSION:-}" ]; then
             VER="${INPUT_VERSION}"
+            echo "Version source: workflow_dispatch input"
           elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
             VER="${GITHUB_REF#refs/tags/v}"
-          elif [ -n "${REPO_PACKAGE_VERSION:-}" ]; then
-            VER="${REPO_PACKAGE_VERSION}"
+            echo "Version source: git tag"
           else
-            VER="1.0.0-ci.${GITHUB_RUN_NUMBER}"
+            VER="$(resolve_from_nuget)"
+            echo "Version source: NuGet.org auto patch-bump (${NUGET_PACKAGE_ID})"
           fi
+
           echo "Using PACKAGE_VERSION=${VER}"
           echo "PACKAGE_VERSION=${VER}" >> "${GITHUB_ENV}"
 
