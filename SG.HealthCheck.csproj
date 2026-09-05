@@ -17,7 +17,6 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
-    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -29,18 +28,17 @@
     <None Include="README.md" Pack="true" PackagePath="\" Condition="Exists('README.md')" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.3.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.11" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
-    
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.10" />
-    <PackageReference Include="Duende.IdentityModel" Version="8.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" />
+    <PackageReference Include="Duende.IdentityModel" />
   </ItemGroup>
   <!-- Exclude compiled/generated files from nested projects (obj/bin folders) when building this root project
        This prevents duplicate assembly attributes (TargetFrameworkAttribute) coming from other projects' obj folders
