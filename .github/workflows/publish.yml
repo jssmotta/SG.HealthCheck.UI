@@ -23,6 +23,8 @@ env:
   # Use Node 24 for setup-node; opt Actions runtime to Node 24 (see GitHub deprecation of Node 20).
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   # Auto patch-bump reads latest stable SG.HealthChecks.UI from NuGet.org (see Resolve package version).
+  # Major.minor line for auto-bump: first push on a new line publishes <line>.0, then <line>.1, ...
+  VERSION_LINE: "2.0"
   CONFIGURATION: Release
   NODE_VERSION: "24"
 
@@ -73,7 +75,7 @@ jobs:
             local http_code
             http_code="$(curl -sS -o /tmp/nuget-index.json -w "%{http_code}" "$index_url")"
             if [ "$http_code" = "404" ]; then
-              echo "1.0.0"
+              echo "${VERSION_LINE}.0"
               return
             fi
             if [ "$http_code" != "200" ]; then
@@ -81,9 +83,9 @@ jobs:
               exit 1
             fi
             local latest_stable
-            latest_stable="$(jq -r '.versions[] | select(contains("-") | not)' /tmp/nuget-index.json | sort -V | tail -n1)"
+            latest_stable="$(jq -r --arg line "${VERSION_LINE}." '.versions[] | select(contains("-") | not) | select(startswith($line))' /tmp/nuget-index.json | sort -V | tail -n1)"
             if [ -z "$latest_stable" ]; then
-              echo "1.0.0"
+              echo "${VERSION_LINE}.0"
             else
               bump_patch "$latest_stable"
             fi

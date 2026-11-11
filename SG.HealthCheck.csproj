@@ -3,7 +3,7 @@
     <TargetFramework>net11.0</TargetFramework>
     <!-- Meta-package aggregating SG health check stack dependencies (NuGet id: SG.HealthChecks). -->
     <PackageId>SG.HealthChecks</PackageId>
-    <Version>1.0.1</Version>
+    <Version>2.0.0</Version>
     <Authors>Jefferson S. Motta</Authors>
     <Company>Menphis Sistemas Inteligentes</Company>
     <Copyright>Copyright © Menphis Sistemas Inteligentes</Copyright>
@@ -33,7 +33,6 @@
     <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
