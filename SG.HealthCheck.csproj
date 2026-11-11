@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <!-- Meta-package aggregating SG health check stack dependencies (NuGet id: SG.HealthChecks). -->
     <PackageId>SG.HealthChecks</PackageId>
     <Version>1.0.1</Version>

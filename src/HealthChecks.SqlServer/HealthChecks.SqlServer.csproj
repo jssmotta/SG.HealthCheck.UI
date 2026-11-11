@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SG.HealthChecks.SqlServer</PackageId>
-    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFrameworks>net11.0</TargetFrameworks>
     <PackageTags>$(PackageTags);Sql Server</PackageTags>
     <Description>HealthChecks.SqlServer is the health check package for SqlServer.</Description>
     </PropertyGroup>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SG.HealthChecks.UI.Data</PackageId>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <PackageTags>$(PackageTags);Data</PackageTags>
     <Description>HealthChecks.UI.Data package containing data models and database context definition</Description>
     <ImplicitUsings>enable</ImplicitUsings>

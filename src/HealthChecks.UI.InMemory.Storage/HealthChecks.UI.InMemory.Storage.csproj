@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SG.HealthChecks.UI.InMemory.Storage</PackageId>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <PackageTags>$(PackageTags);InMemory</PackageTags>
     <Description>HealthChecks.UI.InMemory.Storage package contains the required classes to use InMemory provider in the UI</Description>
     <ImplicitUsings>enable</ImplicitUsings>
