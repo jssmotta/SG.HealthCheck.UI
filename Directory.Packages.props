@@ -3,22 +3,22 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
-  <!-- Central versions for src/*.csproj PackageReference (no Version attribute). Aligned with net10 / SG fork. -->
+  <!-- Central versions for src/*.csproj PackageReference (no Version attribute). Aligned with net11 / SG fork. -->
   <ItemGroup>
     <PackageVersion Include="Duende.IdentityModel" Version="8.1.0" />
-    <PackageVersion Include="KubernetesClient" Version="19.0.2" />
-    <PackageVersion Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.3.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.11" />
-    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.0.2" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.10" />
-    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="10.0.10" />
+    <PackageVersion Include="KubernetesClient" Version="21.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.3.14" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.14" />
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="7.1.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="11.0.0" />
+    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="11.0.0" />
   </ItemGroup>
 </Project>
